@@ -20,13 +20,14 @@ Copyright (c) the Qudi Developers. See the COPYRIGHT.txt file at the
 top-level directory of this distribution and at <https://github.com/Ulm-IQO/qudi/>
 """
 
-from qtpy import QtCore, QtGui
+from qtpy import QtCore, QtGui, QtWidgets
 from collections import OrderedDict
 from qtwidgets.scientific_spinbox import ScienDSpinBox, ScienSpinBox
 from enum import Enum
 
 
-class MultipleCheckboxWidget(QtGui.QWidget):
+# class MultipleCheckboxWidget(QtGui.QWidget):
+class MultipleCheckboxWidget(QtWidgets.QWidget):
     """
     """
     stateChanged = QtCore.Signal()
@@ -40,13 +41,13 @@ class MultipleCheckboxWidget(QtGui.QWidget):
         self._checkbox_width = 30
         self._width_hint = self._checkbox_width * len(checkbox_labels)
 
-        main_layout = QtGui.QHBoxLayout()
+        main_layout = QtWidgets.QHBoxLayout()
         for box_label in checkbox_labels:
             # Create QLabel and QCheckBox for each checkbox label given in init
-            label = QtGui.QLabel(box_label)
+            label = QtWidgets.QLabel(box_label)
             label.setFixedWidth(self._checkbox_width)
             label.setAlignment(QtCore.Qt.AlignCenter)
-            widget = QtGui.QCheckBox()
+            widget = QtWidgets.QCheckBox()
             widget.setFixedWidth(19)
             widget.setChecked(False)
             self._checkboxes[box_label] = {'label': label, 'widget': widget}
@@ -55,7 +56,7 @@ class MultipleCheckboxWidget(QtGui.QWidget):
             widget.stateChanged.connect(self.stateChanged)
 
             # Arrange CheckBoxes and Labels in a layout
-            v_layout = QtGui.QVBoxLayout()
+            v_layout = QtWidgets.QVBoxLayout()
             v_layout.addWidget(label)
             v_layout.addWidget(widget)
             v_layout.setAlignment(label, QtCore.Qt.AlignHCenter)
@@ -82,7 +83,8 @@ class MultipleCheckboxWidget(QtGui.QWidget):
         return QtCore.QSize(self._width_hint, 50)
 
 
-class AnalogParametersWidget(QtGui.QWidget):
+#class AnalogParametersWidget(QtGui.QWidget):
+class AnalogParametersWidget(QtWidgets.QWidget):
     """
     """
     editingFinished = QtCore.Signal()
@@ -97,9 +99,9 @@ class AnalogParametersWidget(QtGui.QWidget):
         self._width_hint = 90 * len(self._parameters)
         self._ach_widgets = OrderedDict()
 
-        main_layout = QtGui.QHBoxLayout()
+        main_layout = QtWidgets.QHBoxLayout()
         for param in self._parameters:
-            label = QtGui.QLabel(param)
+            label = QtWidgets.QLabel(param)
             label.setAlignment(QtCore.Qt.AlignCenter)
             if self._parameters[param]['type'] == float:
                 widget = ScienDSpinBox()
